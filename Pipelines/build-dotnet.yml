@@ -1,0 +1,144 @@
+﻿steps:
+- checkout: self
+  clean: true
+
+# Install anc cache .NET SDK
+- task: UseDotNet@2
+  displayName: 'Install Dotnet Core cli'
+  inputs:
+    version: ${{ parameters.DotnetVersion }}
+
+- task: PowerShell@2
+  displayName: 'Set DOTNET_BUILD_CONCURRENCY'
+  inputs:
+    targetType: inline
+    script: |
+      $env:DOTNET_CLI_TELEMETRY_OPTOUT=1
+      $env:DOTNET_BUILD_CONCURRENCY=1    
+
+# Restore NuGet packages
+- task: DotNetCoreCLI@2
+  displayName: 'Dotnet restore'
+  inputs:
+    command: restore
+    Projects: ${{ parameters.ServicePublishProjects }}
+
+# Prepare analysis on SonarQube
+#- task: SonarQubePrepare@5
+#  displayName: 'Prepare analysis on SonarQube'
+#  inputs:
+#    SonarQube: SonarQubeProj
+#    scannerMode: 'MSBuild'
+#    ProjectKey: '$(SonarProjectKey)'
+#    ProjectName: '$(SonarProjectName)'
+#    ProjectVersion: 1
+#    extraProperties: |
+#     sonar.exclusions=**/bin/**/*,**/obj/**/*,**/Models/**/*,**/Dtos/**/*,**/Entities/**/*,**/Seed/**/*,yourInvoice_Offer/src/Infrastructure/Persistence/Migrations/**/*
+#     sonar.cpd.exclusions=**/Dtos/**/*,**/Configurations/**/*,**/Migrations/**/*,**/Seed/**/*
+#     sonar.coverage.exclusions=**/Dtos/**/*,**/Configurations/**/*,**/Migrations/**/*,,**/Seed/**/*
+#     sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)\**\*.trx,$(Agent.TempDirectory)/*.trx
+#     sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)\**\*.coveragexml
+#     sonar.issue.ignore.multicriteria=e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12,e13,e14,e15,e16
+#     sonar.issue.ignore.multicriteria.e1.ruleKey=csharpsquid:S4261
+#     sonar.issue.ignore.multicriteria.e1.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e2.ruleKey=csharpsquid:S3900
+#     sonar.issue.ignore.multicriteria.e2.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e3.ruleKey=csharpsquid:S121
+#     sonar.issue.ignore.multicriteria.e3.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e4.ruleKey=csharpsquid:S2701
+#     sonar.issue.ignore.multicriteria.e4.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e5.ruleKey=csharpsquid:S4056
+#     sonar.issue.ignore.multicriteria.e5.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e6.ruleKey=csharpsquid:S103
+#     sonar.issue.ignore.multicriteria.e6.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e7.ruleKey=common-cs:DuplicatedBlocks
+#     sonar.issue.ignore.multicriteria.e7.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e8.ruleKey=csharpsquid:S3242
+#     sonar.issue.ignore.multicriteria.e8.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e9.ruleKey=csharpsquid:S100
+#     sonar.issue.ignore.multicriteria.e9.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e10.ruleKey=csharpsquid:S4426
+#     sonar.issue.ignore.multicriteria.e10.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e11.ruleKey=csharpsquid:S5542
+#     sonar.issue.ignore.multicriteria.e11.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e12.ruleKey=csharpsquid:S5547
+#     sonar.issue.ignore.multicriteria.e12.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e13.ruleKey=csharpsquid:S1192
+#     sonar.issue.ignore.multicriteria.e13.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e14.ruleKey=csharpsquid:S2631
+#     sonar.issue.ignore.multicriteria.e14.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e15.ruleKey=csharpsquid:S109
+#     sonar.issue.ignore.multicriteria.e15.resourceKey=**/*.cs
+#     sonar.issue.ignore.multicriteria.e16.ruleKey=csharpsquid:S1104
+#     sonar.issue.ignore.multicriteria.e16.resourceKey=**/*.cs
+
+# Replace database connection
+- task: PowerShell@2
+  displayName: 'PS Replace Variables Environments'
+  inputs:
+    targetType: filePath
+    filePath: './Pipelines/version.ps1'
+    arguments: '-Projectnamepath $(Build.SourcesDirectory) -dbserver $(DBserver) -dbname $(DBname) -dbuser $(DBuser) -dbpasProjrd $(DBpasProjrd) -insightsinstrumentationkey $(InsightsInstrumentationKey) -insightsapplicationid $(InsightsApplicationId) -b2ctenantid $(B2CTenantId) -b2cinstance $(B2CInstance) -b2cclientid $(B2CClientId) -b2cdomain $(B2CDomain) -b2cclientsecret $(B2CClientSecret) -b2csignupsigninpolicyid $(B2CSignUpSignInPolicyId)'
+
+# Build the Project
+- task: DotNetCoreCLI@2
+  displayName: 'Dotnet build'
+  inputs:
+    Projects: ${{ parameters.ServicePublishProjects }}
+    arguments: --configuration $(BuildConfiguration) --no-restore -v m
+
+# Execute test
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: test
+    Projects: '**/*Test.csProj'
+    publishTestResults: true
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+
+# Publish test result
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage results'
+  condition: succeededOrFailed()
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '**/*coverage.cobertura.xml'
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo "Structure of work folder of this pipeline:"
+      tree $(buildConfiguration)
+
+- powershell: |
+    $params = "$env:SONARQUBE_SCANNER_PARAMS" -replace '"sonar.branch.name":"[\w/,-.]*"\,?'
+    Write-Host "##vso[task.setvariable variable=SONARQUBE_SCANNER_PARAMS]$params"
+
+# Run Code Analysis task
+#- task: SonarQubeAnalyze@5
+
+# Publish Quality Gate Result task
+#- task: SonarQubePublish@5
+#  inputs:
+#    pollingTimeoutSec: '300'
+#  enabled: false
+
+# Publish web application (to use later for deployment)
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+    publishWebProjects: false
+    zipAfterPublish: true
+    Projects: ${{ parameters.ServicePublishProjects }}
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory) --no-restore'
+
+# Publish artifacts after job finished within pipeline
+- task: PublishPipelineArtifact@1
+  displayName: Publish pipeline artifacts
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifactName: '${{ parameters.ProjectServiceName }}'
+    publishLocation: 'pipeline'
+
+

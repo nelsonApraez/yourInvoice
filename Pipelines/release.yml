@@ -1,0 +1,22 @@
+stages:
+# Main deployment stage per one selected environment
+- stage: Deploy
+  displayName: Deploy${{ parameters.ProjectName }}
+  variables:
+  - group: Deploy-Environment-${{ parameters.Environment }}
+  jobs:
+  # Do actual web app deployment to Azure
+  - deployment: DeployWebApp
+    displayName: Deploy WebApp to Azure
+    pool:
+      name: 'CMSBackPoolD'
+    environment: ${{ parameters.Environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - template: deploy-webapp.yml
+              parameters:
+                Environment: ${{ parameters.Environment }}
+                ProjectName: ${{ parameters.ProjectName }}
+                PackageName: $(PackageName).zip # replace the value here

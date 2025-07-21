@@ -1,0 +1,42 @@
+﻿stages:
+- stage: Build
+  displayName: Build${{ parameters.ProjectName }}
+
+  # Use multiple jobs, so the linter can work in parallel to the build.
+  # This also allows to run the Linter on Linux whereas you build can run on Windows or Mac.
+  jobs:
+    # Lint the code with Super-Linter from GitHub
+    - job: lint
+      displayName: Lint code base
+      condition: eq(${{ parameters.SkipLint }}, True)
+      pool:
+        name: 'CMSBackPoolD'
+      steps:
+      - script: docker pull github/super-linter:latest
+        displayName: Pull GitHub Super-Linter image
+      - script: >-
+          docker run \
+            -e RUN_LOCAL=true \
+            -e VALIDATE_JSCPD=false \
+            -e VALIDATE_MARKDOWN=false \
+            -e VALIDATE_EDITORCONFIG=false \
+            -v $(System.DefaultWorkingDirectory):/tmp/lint \
+            github/super-linter
+        displayName: 'Run GitHub Super-Linter'
+        continueOnError: true
+
+    # Do main build action
+    - job: build
+      displayName: Build and Test, create artifacts
+      pool:
+        name: 'CMSBackPoolD'
+      variables:
+        BuildConfiguration: 'Release'
+      steps:
+        - template: build-dotnet.yml
+          parameters:
+            ProjectServiceName: ${{ parameters.ProjectName }}
+            RestoreBuildProjects: '**/*.csProj'
+            TestProjects: 'tests/**/*.csProj'
+            DotnetVersion: '7.x'
+            ServicePublishProjects: '**/${{ parameters.ProjectNamePath }}/${{ parameters.ProjectName }}.csProj' # replace the value here

@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="1000" xml:space="preserve">
+    <value>La oferta no existe o no se encuentra en estado En proceso</value>
+  </data>
+  <data name="1001" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que no contiene el CUFE</value>
+  </data>
+  <data name="1002" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que la factura no es del mismo emisor</value>
+  </data>
+  <data name="1003" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que la factura no es para el pagador</value>
+  </data>
+  <data name="1004" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que la factura no es de tipo crédito</value>
+  </data>
+  <data name="1005" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que la factura ha sido procesada previamente</value>
+  </data>
+  <data name="1006" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que no cumple con el esquema de la DIAN</value>
+  </data>
+  <data name="1007" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que no contiene el PDF y XML</value>
+  </data>
+  <data name="1008" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que contiene virus</value>
+  </data>
+  <data name="1009" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que tiene una extensión no admitida</value>
+  </data>
+  <data name="1010" xml:space="preserve">
+    <value>No se enviaron archivos</value>
+  </data>
+  <data name="1011" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que no tiene un tipo de moneda válido.</value>
+  </data>
+  <data name="1012" xml:space="preserve">
+    <value>El pagador no existe</value>
+  </data>
+  <data name="1013" xml:space="preserve">
+    <value>El campo {0} debe estar diligenciado, por favor verifique.</value>
+  </data>
+  <data name="1014" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que se encuentra vacío.</value>
+  </data>
+  <data name="1015" xml:space="preserve">
+    <value>Ocurrió un error extrayendo el archivo: {0}</value>
+  </data>
+  <data name="1016" xml:space="preserve">
+    <value>Se genera el archivo {0}.</value>
+  </data>
+  <data name="1017" xml:space="preserve">
+    <value>Se envía el archivo {0} al blob storage en la ruta {1}.</value>
+  </data>
+  <data name="1018" xml:space="preserve">
+    <value>El parámetro de conexión al service bus no está configurado</value>
+  </data>
+  <data name="1019" xml:space="preserve">
+    <value>El parámetro de la cola del bus para los CUFES no está configurado</value>
+  </data>
+  <data name="1020" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que supera las 5 megas</value>
+  </data>
+  <data name="1021" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que contiene el mismo CUFE que otra factura en esta misma carga de archivos.</value>
+  </data>
+  <data name="1022" xml:space="preserve">
+    <value>{0}. FACTURA ENDOSADA (EMISOR NO ES EL LEGÍTIMO TENEDOR)</value>
+  </data>
+  <data name="1023" xml:space="preserve">
+    <value>{0}. EVENTO DE PAGO ASOCIADO</value>
+  </data>
+  <data name="1024" xml:space="preserve">
+    <value>Se envía el archivo  {0} al FTP, {1}.</value>
+  </data>
+  <data name="1025" xml:space="preserve">
+    <value>Se finaliza la búsqueda en el FTP del archivo {0} en el FTP, resultado {1}.</value>
+  </data>
+  <data name="1026" xml:space="preserve">
+    <value>Se procesa el archivo {0} cantidad de registros procesado {1} de {2}, resultado {3}</value>
+  </data>
+  <data name="1027" xml:space="preserve">
+    <value>La columna [Fecha de pago] solo permite el formato fecha dd-mm-yyyy o mm-dd-yyyy, El valor debe ser mayor a la fecha actual.</value>
+  </data>
+  <data name="1028" xml:space="preserve">
+    <value>La columna [Valor neto de pago] solo permite número, El valor debe ser mayor a 0</value>
+  </data>
+  <data name="1029" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que no tiene la misma cantidad de facturas que tiene la oferta.</value>
+  </data>
+  <data name="1030" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que contiene facturas no válidas en la oferta.</value>
+  </data>
+  <data name="1031" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que contiene facturas con fechas menores o iguales a la de hoy.</value>
+  </data>
+  <data name="1032" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que contiene valores menores o iguales que cero.</value>
+  </data>
+  <data name="1033" xml:space="preserve">
+    <value>El catálogo no existe</value>
+  </data>
+  <data name="1034" xml:space="preserve">
+    <value>El beneficiario ya existe.</value>
+  </data>
+  <data name="1035" xml:space="preserve">
+    <value>El certificado bancario es requerido</value>
+  </data>
+  <data name="1036" xml:space="preserve">
+    <value>El documento o RUT es requerido</value>
+  </data>
+  <data name="1037" xml:space="preserve">
+    <value>El documento cargado no es de formato PDF.</value>
+  </data>
+  <data name="1038" xml:space="preserve">
+    <value>El dígito de verificación es requerido</value>
+  </data>
+  <data name="1039" xml:space="preserve">
+    <value>No se pueden generar nuevamente los documentos, ya que ya se encuentran firmados.</value>
+  </data>
+  <data name="1040" xml:space="preserve">
+    <value>El documento no existe</value>
+  </data>
+  <data name="1041" xml:space="preserve">
+    <value>No se puede exceder más de la cantidad máxima parametrizada de beneficiarios.</value>
+  </data>
+  <data name="1042" xml:space="preserve">
+    <value>Ningún campo de valor de pago o fecha de pago puede ir vacío.</value>
+  </data>
+  <data name="1043" xml:space="preserve">
+    <value>El servidor de correo no se encuentra configurado</value>
+  </data>
+  <data name="1044" xml:space="preserve">
+    <value>El email no es válido</value>
+  </data>
+  <data name="1045" xml:space="preserve">
+    <value>La oferta {0} se venció porque excedió el tiempo máximo para su compra</value>
+  </data>
+  <data name="1046" xml:space="preserve">
+    <value>La factura {0} oferta {1} con estado habilitado, no se encuentra registrada.</value>
+  </data>
+  <data name="1047" xml:space="preserve">
+    <value>La factura {0} oferta {1} no está registrado el pagador {2}.</value>
+  </data>
+  <data name="1048" xml:space="preserve">
+    <value>La factura {0} del número de oferta {1} no está registrado el vendedor {2}.</value>
+  </data>
+  <data name="1049" xml:space="preserve">
+    <value>La oferta {0} está disponible para compra.</value>
+  </data>
+  <data name="1050" xml:space="preserve">
+    <value>El archivo {0} fue procesado.</value>
+  </data>
+  <data name="1051" xml:space="preserve">
+    <value>El archivo no puede superar las 5 MB</value>
+  </data>
+  <data name="1052" xml:space="preserve">
+    <value>La suma del tamaño de todos los archivos no debe superar los 10 MB</value>
+  </data>
+  <data name="1053" xml:space="preserve">
+    <value>El número de la factura {0} no contiene un formato válido.</value>
+  </data>
+  <data name="1054" xml:space="preserve">
+    <value>La fecha de compra {0} debe ser mayor a la fecha final {1}</value>
+  </data>
+  <data name="1055" xml:space="preserve">
+    <value>La fecha de compra {0} no debe ser inferior a 1 semana.</value>
+  </data>
+  <data name="1056" xml:space="preserve">
+    <value>No existe el archivo {0} en el BlobStorage {1}.</value>
+  </data>
+  <data name="1057" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que el campo {0} no fue encontrado en el XML.</value>
+  </data>
+  <data name="1058" xml:space="preserve">
+    <value>Ocurrió un error al realizar la firma de los documentos con Zapsign. Por favor, intente de nuevo.</value>
+  </data>
+  <data name="1059" xml:space="preserve">
+    <value>No se generó token en el proceso de firma con zapsign.</value>
+  </data>
+  <data name="1060" xml:space="preserve">
+    <value>No existe información del resumen para el usuario, por favor verifique.</value>
+  </data>
+  <data name="1061" xml:space="preserve">
+    <value>La cuenta con el correo electrónico ingresado ya existe.</value>
+  </data>
+  <data name="1062" xml:space="preserve">
+    <value>La cuenta no existe.</value>
+  </data>
+  <data name="1063" xml:space="preserve">
+    <value>El número documento {0} de la columna [Numero de documento comprador] no pertenece a un usuario comprador o el usuario no existe.</value>
+  </data>
+  <data name="1064" xml:space="preserve">
+    <value>El registro {0} columna {1} está vacío, debe contener información.</value>
+  </data>
+  <data name="1065" xml:space="preserve">
+    <value>No se pudo procesar el archivo debido que en la columna reasignación no hay registros N, R, M.</value>
+  </data>
+  <data name="1066" xml:space="preserve">
+    <value>No se pueden procesar archivos .zip que contengan más de una factura electrónica internamente</value>
+  </data>
+  <data name="1067" xml:space="preserve">
+    <value>¡Advertencia! El valor de pago neto no puede exceder el valor de la factura más un 19%. Por favor, asegúrate de que el monto a pagar esté dentro de este límite.</value>
+  </data>
+  <data name="1068" xml:space="preserve">
+    <value>{0}030 Acuse de recibo de la factura electrónica de venta.</value>
+  </data>
+  <data name="1069" xml:space="preserve">
+    <value>{0}032 Recibo del bien o prestación del servicio.</value>
+  </data>
+  <data name="1070" xml:space="preserve">
+    <value>{0}033 Aceptación expresa de la facturación electrónica de venta.</value>
+  </data>
+  <data name="1071" xml:space="preserve">
+    <value>{0}034 Aceptación tácita de la factura electrónica de venta.</value>
+  </data>
+  <data name="1072" xml:space="preserve">
+    <value>{0}031 Reclamo de la factura electrónica de venta.</value>
+  </data>
+  <data name="1073" xml:space="preserve">
+    <value>{0}036 Primera inscripción de la factura electrónica de venta como título valor en el RADIAN para negociación directa previa.</value>
+  </data>
+  <data name="1074" xml:space="preserve">
+    <value>{0}037 Endoso electrónico en propiedad con responsabilidad.</value>
+  </data>
+  <data name="1075" xml:space="preserve">
+    <value>{0}037 Endoso electrónico en propiedad sin responsabilidad.</value>
+  </data>
+  <data name="1076" xml:space="preserve">
+    <value>{0}047 Endoso con efectos de cesión ordinaria.</value>
+  </data>
+  <data name="1077" xml:space="preserve">
+    <value>{0}046 Informe para el pago de la factura electrónica de venta como título valor.</value>
+  </data>
+  <data name="1078" xml:space="preserve">
+    <value>{0}045 Pago total de la factura electrónica de venta como título valor.</value>
+  </data>
+  <data name="1079" xml:space="preserve">
+    <value>La oferta no se puede modificar debido a que su estado actual no está en progreso.</value>
+  </data>
+  <data name="1082" xml:space="preserve">
+    <value>La oferta no se puede modificar debido a que su estado actual es comprada.</value>
+  </data>
+  <data name="1083" xml:space="preserve">
+    <value>El sistema no pudo cargar información para el usuario actual, por favor verifique.</value>
+  </data>
+  <data name="1084" xml:space="preserve">
+    <value>La {0} está registrada para el usuario actual.</value>
+  </data>
+  <data name="1085" xml:space="preserve">
+    <value>El total supera el límite de {0} Ajuste los valores.</value>
+  </data>
+  <data name="1086" xml:space="preserve">
+    <value>El usuario no se puede registrar, porque no es de tipo jurídico.</value>
+  </data>
+  <data name="1087" xml:space="preserve">
+    <value>Los documentos ya se encuentran firmados, no es posible firmarlos de nuevo.</value>
+  </data>
+  <data name="1088" xml:space="preserve">
+    <value>Los documentos ya se encuentran firmados y están pendientes de aprobación.</value>
+  </data>
+  <data name="1089" xml:space="preserve">
+    <value>No se pueden generar los archivos porque uno o más formularios en el proceso de vinculación no se encuentran completos, verifique nuevamente.</value>
+  </data>
+  <data name="1090" xml:space="preserve">
+    <value>Ocurrió un error generando el archivo: {0}</value>
+  </data>
+  <data name="1091" xml:space="preserve">
+    <value>El archivo ha sido rechazado, ya que la información dentro del xml es invalida.</value>
+  </data>
+</root>

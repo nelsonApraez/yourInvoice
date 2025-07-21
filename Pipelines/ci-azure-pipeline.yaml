@@ -1,0 +1,48 @@
+﻿# Parameters for pipeline
+parameters:
+  - name: environment
+    displayName: Environment
+    type: string
+    default: BuildOnly
+    values:
+    - BuildOnly
+    - Dllo
+    - Prbs
+    - Prod
+  - name: ProjectName
+    displayName: ProjectName
+    type: string
+    default: 'yourInvoice.Offer.Web.API' # <-replace value here!
+  - name: skipLint
+    displayName: SkipLint
+    type: boolean
+    default: false
+
+# no automatically triggers
+trigger:
+  - none
+
+variables:
+  - ${{ if eq(parameters.Environment, 'BuildOnly') }}:
+    - group: Deploy-Environment-Dllo
+  - ${{ if eq(parameters.Environment, 'Dllo') }}:
+    - group: Deploy-Environment-Dllo
+  - ${{ if eq(parameters.Environment, 'Prbs') }}:
+    - group: Deploy-Environment-Prbs
+  - ${{ if eq(parameters.Environment, 'Prod') }}:
+    - group: Deploy-Environment-Prod
+
+# stages - list of the jobs to do step by step
+stages:
+  # Build and Lint (and other stuff) stage
+  - template: ./build.yml
+    parameters:
+      Environment: ${{ parameters.Environment }}
+      ProjectName: ${{ parameters.ProjectName }}
+      SkipLint: ${{ parameters.SkipLint }}
+
+  - ${{ if not(eq(parameters.Environment,'BuildOnly')) }}:
+    - template: ./release.yml
+      parameters:
+        Environment: ${{ parameters.Environment }}
+        ProjectName: ${{ parameters.ProjectName }}

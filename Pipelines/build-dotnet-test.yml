@@ -1,0 +1,53 @@
+﻿steps:
+- checkout: self
+  clean: true
+
+# Install anc cache .NET SDK
+- task: UseDotNet@2
+  displayName: 'Install Dotnet Core cli'
+  inputs:
+    version: ${{ parameters.DotnetVersion }}
+
+- task: PowerShell@2
+  displayName: 'Set DOTNET_BUILD_CONCURRENCY'
+  inputs:
+    targetType: inline
+    script: |
+      $env:DOTNET_CLI_TELEMETRY_OPTOUT=1
+      $env:DOTNET_BUILD_CONCURRENCY=1
+
+# Restore NuGet packages
+- task: DotNetCoreCLI@2
+  displayName: 'Dotnet restore'
+  inputs:
+    command: restore
+    Projects: ${{ parameters.ServicePublishProjects }}
+
+- task: PowerShell@2
+  displayName: 'PS Replace Variables Environments'
+  inputs:
+    targetType: filePath
+    filePath: './version.ps1'
+    arguments: '-Projectnamepath $(Build.SourcesDirectory) -dbserver $(DBserver) -dbname $(DBname) -dbuser $(DBuser) -dbpasProjrd $(DBpasProjrd) -insightsinstrumentationkey $(InsightsInstrumentationKey) -insightsapplicationid $(InsightsApplicationId) -b2ctenantid $(B2CTenantId) -b2cinstance $(B2CInstance) -b2cclientid $(B2CClientId) -b2cdomain $(B2CDomain) -b2cclientsecret $(B2CClientSecret) -b2csignupsigninpolicyid $(B2CSignUpSignInPolicyId)'
+
+# Build the Project
+- task: DotNetCoreCLI@2
+  displayName: 'Dotnet build'
+  inputs:
+    Projects: ${{ parameters.ServicePublishProjects }}
+    arguments: --configuration $(BuildConfiguration) --no-restore -v d
+
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: test
+    Projects: '**/*Test.csProj'
+    publishTestResults: true
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage results'
+  condition: succeededOrFailed()
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '**/*coverage.cobertura.xml'
